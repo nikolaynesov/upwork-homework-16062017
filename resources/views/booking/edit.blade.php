@@ -33,6 +33,21 @@
                     {!! $errors->first('cleaner_id', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+            <div class="form-group {{ $errors->has('start_at') ? 'has-error' : ''}}">
+                {!! Form::label('start_at', 'Start At', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::time('start_at', null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('start_at', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div class="form-group {{ $errors->has('end_at') ? 'has-error' : ''}}">
+                {!! Form::label('end_at', 'End At', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::time('end_at', null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('end_at', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+
 
 
         <div class="form-group">

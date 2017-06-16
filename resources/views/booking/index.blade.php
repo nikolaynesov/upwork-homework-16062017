@@ -8,14 +8,17 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Date </th><th> Customer Id </th><th> Cleaner Id </th><th>Actions</th>
+                    <th>S.No</th><th> Date </th><th> Customer Id </th><th> Cleaner Id </th><th> Start-End </th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($booking as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->date }}</td><td>{{ $item->customer_id }}</td><td>{{ $item->cleaner_id }}</td>
+                    <td>{{ $item->date }}</td>
+                    <td>{{ $item->customer_id }}</td>
+                    <td>{{ $item->cleaner_id }}</td>
+                    <td>{{ $item->start_at }} - {{$item->end_at}}</td>
                     <td>
                         <a href="{{ url('/booking/' . $item->id) }}" class="btn btn-success btn-xs" title="View Booking"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/booking/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit Booking"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>

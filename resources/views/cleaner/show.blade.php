@@ -22,9 +22,46 @@
         <table class="table table-bordered table-striped table-hover">
             <tbody>
                 <tr>
-                    <th>ID</th><td>{{ $cleaner->id }}</td>
+                    <th>ID</th>
+                    <td>{{ $cleaner->id }}</td>
                 </tr>
-                <tr><th> First Name </th><td> {{ $cleaner->first_name }} </td></tr><tr><th> Last Name </th><td> {{ $cleaner->last_name }} </td></tr><tr><th> Quality Score </th><td> {{ $cleaner->quality_score }} </td></tr>
+                <tr>
+
+                    <th> First Name </th>
+                    <td> {{ $cleaner->first_name }} </td>
+                </tr>
+                <tr>
+                    <th> Last Name </th>
+                    <td> {{ $cleaner->last_name }} </td>
+                </tr>
+                <tr>
+                    <th> Quality Score </th>
+                    <td> {{ $cleaner->quality_score }} </td>
+                </tr>
+                <tr>
+                    <th> Availability </th>
+                    <td> {{ $cleaner->available_from }} - {{ $cleaner->available_to }} </td>
+                </tr>
+                <tr>
+                    <th> Cities </th>
+                    <td>
+
+                        @if(!$cleaner->cities->isEmpty())
+                        <ul>
+                            @foreach($cleaner->cities as $city)
+
+                                <li>{{$city->name}}</li>
+
+                            @endforeach
+                        </ul>
+                        @else
+
+                            No cities specified
+
+                        @endif
+
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

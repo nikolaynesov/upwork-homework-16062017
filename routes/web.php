@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+Route::post('/', 'HomeController@BookByPhoneNumber');
 
 Route::resource('customer', 'CustomerController');
-Route::resource('booking', 'BookingController');
 Route::resource('cleaner', 'CleanerController');
+Route::resource('booking', 'BookingController');
+Route::resource('city', 'CityController');
+Auth::routes();

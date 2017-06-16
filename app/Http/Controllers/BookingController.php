@@ -9,8 +9,22 @@ use App\Booking;
 use Illuminate\Http\Request;
 use Session;
 
+/**
+ * Class BookingController
+ * @package App\Http\Controllers
+ */
 class BookingController extends Controller
 {
+
+    /**
+     * BookingController constructor.
+     */
+    public function __construct() {
+
+        $this->middleware('auth')->except(['store']);
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,6 +56,14 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'date'        => 'required|date_format:Y-m-d',
+            'customer_id' => 'required|integer|exists:customers,id',
+            'cleaner_id'  => 'required|integer|exists:cleaners,id',
+            'start_at'    => 'required|date_format:H:i',
+            'end_at'      => 'required|date_format:H:i'
+        ]);
         
         $requestData = $request->all();
         
@@ -59,10 +81,8 @@ class BookingController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Booking $booking)
     {
-        $booking = Booking::findOrFail($id);
-
         return view('booking.show', compact('booking'));
     }
 
@@ -73,27 +93,33 @@ class BookingController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Booking $booking)
     {
-        $booking = Booking::findOrFail($id);
 
         return view('booking.edit', compact('booking'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update(Booking $booking, Request $request)
     {
+
+        $this->validate($request, [
+            'date'        => 'required|date_format:Y-m-d',
+            'customer_id' =>'required|integer|exists:customers,id',
+            'cleaner_id'  =>'required|integer|exists:cleaners,id',
+            'start_at'    => 'required|date_format:H:i',
+            'end_at'      => 'required|date_format:H:i'
+        ]);
         
         $requestData = $request->all();
         
-        $booking = Booking::findOrFail($id);
         $booking->update($requestData);
 
         Session::flash('flash_message', 'Booking updated!');
@@ -108,9 +134,9 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Booking $booking)
     {
-        Booking::destroy($id);
+        Booking::destroy($booking->getKey());
 
         Session::flash('flash_message', 'Booking deleted!');
 

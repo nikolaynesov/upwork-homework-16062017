@@ -8,14 +8,40 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> First Name </th><th> Last Name </th><th> Quality Score </th><th>Actions</th>
+                    <th>S.No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Quality Score</th>
+                    <th>Availability</th>
+                    <th>Cities</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($cleaner as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->first_name }}</td><td>{{ $item->last_name }}</td><td>{{ $item->quality_score }}</td>
+                    <td>{{ $item->first_name }}</td>
+                    <td>{{ $item->last_name }}</td>
+                    <td>{{ $item->quality_score }}</td>
+                    <td>{{ $item->available_from }} - {{ $item->available_to }}</td>
+                    <td>
+
+                        @if(!$item->cities->isEmpty())
+
+                            @foreach($item->cities as $city)
+
+                                {{$city->name}} &nbsp; &nbsp;
+
+                            @endforeach
+
+                        @else
+
+                            No cities specified
+
+                        @endif
+
+                    </td>
                     <td>
                         <a href="{{ url('/cleaner/' . $item->id) }}" class="btn btn-success btn-xs" title="View Cleaner"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/cleaner/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit Cleaner"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
